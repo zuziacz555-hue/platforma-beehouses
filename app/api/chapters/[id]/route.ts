@@ -4,7 +4,7 @@ import { isAdmin } from '@/utils/auth';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
     try {
@@ -23,7 +23,7 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     if (!await isAdmin(req)) {
         return NextResponse.json({ message: 'Admin access required' }, { status: 403 });
@@ -52,7 +52,7 @@ export async function PUT(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     if (!await isAdmin(req)) {
         return NextResponse.json({ message: 'Admin access required' }, { status: 403 });
