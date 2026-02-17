@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BookOpen, Award, Users, ArrowRight } from "lucide-react";
 
+// Final deployment build trigger
 export default function Home() {
   return (
     <div className="min-h-screen bg-stone-50 flex flex-col font-sans text-slate-900">
