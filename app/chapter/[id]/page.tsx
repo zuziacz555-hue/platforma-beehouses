@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function ChapterView() {
     const { user, loading } = useAuth();
     const router = useRouter();
-    const params = useParams();
+    const params = useParams(); // This is how params are accessed in a client component
     const [chapter, setChapter] = useState<any>(null);
     const [timeLeft, setTimeLeft] = useState(180); // 3 minutes
     const [timeSpent, setTimeSpent] = useState(0);
