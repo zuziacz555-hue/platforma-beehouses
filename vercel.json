@@ -1,8 +1,0 @@
-{
-    "version": 2,
-    "public": true,
-    "framework": "nextjs",
-    "buildCommand": "npm run build --workspace=frontend",
-    "installCommand": "npm install",
-    "outputDirectory": "frontend/.next"
-}
