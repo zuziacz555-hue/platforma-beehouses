@@ -1,0 +1,35 @@
+# Root .gitignore for Zapylacze project
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# Backend specific
+backend/dev.db
+backend/*.log
+backend/.env
+backend/generated/prisma/
+backend/prisma/migrations/
+
+# Frontend specific
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env*
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Testing and coverage
+coverage/
+
+# Misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vercel
+.vercel/
