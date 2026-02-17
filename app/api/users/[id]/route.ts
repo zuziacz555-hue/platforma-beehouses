@@ -5,13 +5,13 @@ import bcrypt from 'bcryptjs';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     if (!await isAdmin(req)) {
         return NextResponse.json({ message: 'Admin access required' }, { status: 403 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
     try {
         const user = await prisma.user.findUnique({
             where: { id: parseInt(id) },
@@ -36,13 +36,13 @@ export async function GET(
 
 export async function PUT(
     req: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     if (!await isAdmin(req)) {
         return NextResponse.json({ message: 'Admin access required' }, { status: 403 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
     try {
         const { email, firstName, lastName, role, password } = await req.json();
         const data: any = {
@@ -69,13 +69,13 @@ export async function PUT(
 
 export async function DELETE(
     req: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     if (!await isAdmin(req)) {
         return NextResponse.json({ message: 'Admin access required' }, { status: 403 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
     try {
         await prisma.user.delete({
             where: { id: parseInt(id) },
