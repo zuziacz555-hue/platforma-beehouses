@@ -47,7 +47,7 @@ model UserProgress {
 
 model Certificate {
   id        Int      @id @default(autoincrement())
-  userId    Int
+  userId    Int      @unique
   issueDate DateTime @default(now())
   pdfUrl    String   // Path to generated PDF
   user      User     @relation(fields: [userId], references: [id])

@@ -5566,14 +5566,14 @@ export namespace Prisma {
 
   export type CertificateWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userId?: number
     AND?: CertificateWhereInput | CertificateWhereInput[]
     OR?: CertificateWhereInput[]
     NOT?: CertificateWhereInput | CertificateWhereInput[]
-    userId?: IntFilter<"Certificate"> | number
     issueDate?: DateTimeFilter<"Certificate"> | Date | string
     pdfUrl?: StringFilter<"Certificate"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "userId">
 
   export type CertificateOrderByWithAggregationInput = {
     id?: SortOrder
