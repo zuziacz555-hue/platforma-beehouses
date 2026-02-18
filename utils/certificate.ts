@@ -5,22 +5,23 @@ import fs from 'fs';
 export async function generateCertificatePDF(user: any, date: Date): Promise<Buffer> {
     return new Promise((resolve, reject) => {
         try {
+            // Load custom font buffer to avoid ENOENT for standard fonts in serverless
+            const fontPath = path.join(process.cwd(), 'fonts', 'Roboto-Regular.woff');
+            console.log('Loading font from:', fontPath);
+            let fontBuffer: Buffer;
+
+            try {
+                fontBuffer = fs.readFileSync(fontPath);
+            } catch (err) {
+                console.error('Failed to load font file:', err);
+                throw err;
+            }
+
             const doc = new PDFDocument({
                 layout: 'landscape',
                 size: 'A4',
+                font: fontBuffer as unknown as string, // Cast to avoid TS error (pdfkit supports buffer at runtime)
             });
-
-            // Use custom font to avoid ENOENT for standard fonts in serverless
-            const fontPath = path.join(process.cwd(), 'fonts', 'Roboto-Regular.woff');
-            console.log('Loading font from:', fontPath);
-            try {
-                const fontBuffer = fs.readFileSync(fontPath);
-                doc.font(fontBuffer);
-            } catch (err) {
-                console.error('Failed to load font:', err);
-                // Fallback to standard font if custom fails (might fail on Vercel but worth a try or just throw)
-                throw err;
-            }
 
             const chunks: any[] = [];
             doc.on('data', (chunk) => chunks.push(chunk));
