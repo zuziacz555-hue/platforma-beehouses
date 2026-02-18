@@ -70,9 +70,10 @@ export default function UserDashboard() {
             link.click();
             link.parentNode?.removeChild(link);
             window.URL.revokeObjectURL(url);
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert('Błąd pobierania certyfikatu');
+            const msg = err.response?.data?.message || err.message || 'Błąd pobierania certyfikatu';
+            alert(`Błąd: ${msg}`);
         }
     }
 
