@@ -40,6 +40,6 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: 'Certificate generated', id: cert.id });
     } catch (error: any) {
         console.error('Generate cert error:', error);
-        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+        return NextResponse.json({ message: `Internal server error: ${error.message}` }, { status: 500 });
     }
 }

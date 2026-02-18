@@ -33,6 +33,6 @@ export async function GET(req: NextRequest) {
 
     } catch (error: any) {
         console.error('Download cert error:', error);
-        return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
+        return NextResponse.json({ message: `Internal server error: ${error.message}` }, { status: 500 });
     }
 }
