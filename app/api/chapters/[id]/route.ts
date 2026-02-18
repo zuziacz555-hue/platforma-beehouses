@@ -7,9 +7,15 @@ export async function GET(
     context: { params: Promise<{ id: string }> }
 ) {
     const { id } = await context.params;
+    const chapterId = parseInt(id);
+
+    if (isNaN(chapterId)) {
+        return NextResponse.json({ message: 'Invalid chapter ID' }, { status: 400 });
+    }
+
     try {
         const chapter = await prisma.chapter.findUnique({
-            where: { id: parseInt(id) },
+            where: { id: chapterId },
         });
         if (!chapter) {
             return NextResponse.json({ message: 'Chapter not found' }, { status: 404 });
@@ -30,10 +36,16 @@ export async function PUT(
     }
 
     const { id } = await context.params;
+    const chapterId = parseInt(id);
+
+    if (isNaN(chapterId)) {
+        return NextResponse.json({ message: 'Invalid chapter ID' }, { status: 400 });
+    }
+
     try {
         const { title, description, content, videoUrl, images, orderNumber } = await req.json();
         const chapter = await prisma.chapter.update({
-            where: { id: parseInt(id) },
+            where: { id: chapterId },
             data: {
                 title,
                 description,
@@ -59,9 +71,15 @@ export async function DELETE(
     }
 
     const { id } = await context.params;
+    const chapterId = parseInt(id);
+
+    if (isNaN(chapterId)) {
+        return NextResponse.json({ message: 'Invalid chapter ID' }, { status: 400 });
+    }
+
     try {
         await prisma.chapter.delete({
-            where: { id: parseInt(id) },
+            where: { id: chapterId },
         });
         return NextResponse.json({ message: 'Chapter deleted' });
     } catch (error: any) {
