@@ -23,17 +23,6 @@ export default function AdminDashboard() {
     // Password Reset State
     const [resetUserData, setResetUserData] = useState<any>(null);
 
-    useEffect(() => {
-        if (!loading && (!user || user.role !== 'admin')) {
-            router.push('/login');
-            return;
-        }
-
-        if (user?.role === 'admin') {
-            fetchData();
-        }
-    }, [user, loading, router]);
-
     const fetchData = async () => {
         try {
             const statsRes = await api.get('/dashboard/stats');
@@ -48,6 +37,17 @@ export default function AdminDashboard() {
             console.error(err);
         }
     };
+
+    useEffect(() => {
+        if (!loading && (!user || user.role !== 'admin')) {
+            router.push('/login');
+            return;
+        }
+
+        if (user?.role === 'admin') {
+            fetchData();
+        }
+    }, [user, loading, router]);
 
     const handleDelete = async (id: number) => {
         if (confirm('Czy na pewno chcesz usunąć ten rozdział?')) {

@@ -14,15 +14,6 @@ export default function UserDashboard() {
     const [progress, setProgress] = useState<any[]>([]);
     const [loadingData, setLoadingData] = useState(true);
 
-    useEffect(() => {
-        if (!loading && !user) {
-            router.push('/login');
-        }
-        if (user) {
-            fetchData();
-        }
-    }, [user, loading, router]);
-
     const fetchData = async () => {
         try {
             const [chaptersRes, progressRes] = await Promise.all([
@@ -39,6 +30,15 @@ export default function UserDashboard() {
             setLoadingData(false);
         }
     };
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login');
+        }
+        if (user) {
+            fetchData();
+        }
+    }, [user, loading, router]);
 
     const getChapterStatus = (chapter: any, index: number) => {
         const userProg = progress.find((p: any) => p.chapterId === chapter.id);

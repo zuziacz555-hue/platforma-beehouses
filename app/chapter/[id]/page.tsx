@@ -20,20 +20,6 @@ export default function ChapterView() {
     const timerRef = useRef<NodeJS.Timeout | null>(null);
     const saveIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    useEffect(() => {
-        if (!loading && !user) router.push('/login');
-        if (user && params.id) {
-            fetchChapter();
-            // Also fetch progress to resume time/status?
-            // Basic requirement: Start timer regardless? Or check if completed.
-            // Let's check status first.
-        }
-        return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
-            if (saveIntervalRef.current) clearInterval(saveIntervalRef.current);
-        }
-    }, [user, loading, params.id]);
-
     const fetchChapter = async () => {
         try {
             const id = params.id;
@@ -71,6 +57,20 @@ export default function ChapterView() {
             console.error(err);
         }
     };
+
+    useEffect(() => {
+        if (!loading && !user) router.push('/login');
+        if (user && params.id) {
+            fetchChapter();
+            // Also fetch progress to resume time/status?
+            // Basic requirement: Start timer regardless? Or check if completed.
+            // Let's check status first.
+        }
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current);
+            if (saveIntervalRef.current) clearInterval(saveIntervalRef.current);
+        }
+    }, [user, loading, params.id]);
 
     const startTimer = () => {
         // Local timer for UI countdown
