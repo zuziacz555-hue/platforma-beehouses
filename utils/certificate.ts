@@ -28,20 +28,40 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             doc.on('end', () => resolve(Buffer.concat(chunks)));
             doc.on('error', reject);
 
-            // Add certificate content
-            doc.rect(50, 50, 742, 495).stroke();
+            // Add background image
+            const bgPath = path.join(process.cwd(), 'public', 'certificate-bg.png');
+            try {
+                if (fs.existsSync(bgPath)) {
+                    doc.image(bgPath, 0, 0, { width: 842, height: 595 }); // A4 Landscape dimensions
+                } else {
+                    console.warn('Background image not found, drawing fallback border');
+                    doc.rect(50, 50, 742, 495).stroke();
+                }
+            } catch (bgErr) {
+                console.error('Error loading background:', bgErr);
+                doc.rect(50, 50, 742, 495).stroke();
+            }
 
-            doc.fontSize(50).text('CERTIFICATE', { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(20).text('This is to certify that', { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(40).text(`${user.firstName} ${user.lastName}`, { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(20).text('has successfully completed the', { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(30).text('POLISH BEEHOUSES COURSE', { align: 'center' });
-            doc.moveDown();
-            doc.fontSize(15).text(`Date: ${date.toLocaleDateString()}`, { align: 'center' });
+            // Text Positioning based on the provided design
+            // Name should be centered, roughly in the middle-upper part
+            // Date should be bottom-left
+
+            // Configure font size for the name
+            doc.fontSize(40).fillColor('black');
+
+            // Name - Centered
+            // Adjust '300' to vertically align with the "gap" in the certificate design
+            doc.text(`${user.firstName} ${user.lastName}`, 0, 290, {
+                align: 'center',
+                width: 842 // Full width for centering
+            });
+
+            // Date - Bottom Left
+            // Adjust coordinates to match the "data ukończenia" line
+            doc.fontSize(15);
+            doc.text(`${date.toLocaleDateString()}`, 180, 445, {
+                align: 'left'
+            });
 
             doc.end();
         } catch (error) {
