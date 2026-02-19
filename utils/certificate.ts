@@ -6,7 +6,8 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
     return new Promise((resolve, reject) => {
         try {
             // Load custom font buffer to avoid ENOENT for standard fonts in serverless
-            const fontPath = path.join(process.cwd(), 'fonts', 'Roboto-Regular.woff');
+            // Using Arial.ttf for guaranteed Polish character support
+            const fontPath = path.join(process.cwd(), 'fonts', 'Arial.ttf');
             console.log('Loading font from:', fontPath);
             let fontBuffer: Buffer;
 
@@ -32,7 +33,14 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             const bgPath = path.join(process.cwd(), 'public', 'certificate-bg.png');
             try {
                 if (fs.existsSync(bgPath)) {
-                    doc.image(bgPath, 0, 0, { width: 842, height: 595 }); // A4 Landscape dimensions
+                    const stats = fs.statSync(bgPath);
+                    // If file is too small (e.g. < 20KB), it's probably my placeholder or a corrupt save
+                    if (stats.size > 20000) {
+                        doc.image(bgPath, 0, 0, { width: 842, height: 595 }); // A4 Landscape dimensions
+                    } else {
+                        console.warn('Background image too small, drawing fallback border');
+                        doc.rect(50, 50, 742, 495).stroke();
+                    }
                 } else {
                     console.warn('Background image not found, drawing fallback border');
                     doc.rect(50, 50, 742, 495).stroke();
