@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body className={`${playfair.variable} ${lato.variable} font-sans antialiased`}>
+      <body className={`${playfair.variable} ${lato.variable} font-sans bg-white text-slate-800 antialiased`}>
         <Providers>
           <Navbar />
           <main className="min-h-screen flex flex-col">
