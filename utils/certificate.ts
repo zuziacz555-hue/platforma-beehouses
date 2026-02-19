@@ -54,16 +54,16 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             // The image already contains most of the text.
             // We only need to insert the Name and the Date.
 
-            // Name - Centered in the middle placeholder
-            doc.fontSize(40).fillColor('#2e4d2a'); // Using a dark green to match the theme
-            doc.text(`${user.firstName} ${user.lastName}`, 0, 275, {
+            // Name - Centered in the middle placeholder (lowered to y=380)
+            doc.fontSize(40).fillColor('#2e4d2a');
+            doc.text(`${user.firstName} ${user.lastName}`, 0, 380, {
                 align: 'center',
                 width: 842
             });
 
-            // Date - Bottom Left under the "DATA UKOŃCZENIA" line
+            // Date - Above the "DATA UKOŃCZENIA" line (moved higher to y=435 and adjusted X)
             doc.fontSize(16).fillColor('black');
-            doc.text(`${date.toLocaleDateString('pl-PL')}`, 210, 485, {
+            doc.text(`${date.toLocaleDateString('pl-PL')}`, 190, 435, {
                 width: 150,
                 align: 'center'
             });
