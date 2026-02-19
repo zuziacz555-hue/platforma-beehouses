@@ -12,11 +12,9 @@ const Navbar = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const navLinks = [
-        { label: 'Wpływ', href: '/#impact' },
-        { label: 'Wizja', href: '/#mission' },
+        { label: 'Misja', href: '/#mission' },
+        { label: 'Działalność', href: '/#impact' },
         { label: 'Historia', href: '/#history' },
-        { label: 'Adopcja', href: '/#adopt' },
-        { label: 'Galeria', href: '/#gallery' },
         { label: 'Kontakt', href: '/#kontakt' },
     ];
 

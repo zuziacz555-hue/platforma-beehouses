@@ -1,240 +1,321 @@
 import Link from "next/link";
-import { ArrowRight, Shield, FileText, BarChart3, Activity, Hexagon, Sparkles, Mail, Phone, MapPin, ChevronDown, Star, Cpu, BookOpen, Bug, Leaf, FlaskConical, Wheat, Trees, Bird } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowRight, ChevronDown, Leaf, Bug, TreePine, Shield, Wheat, Heart,
+  GraduationCap, FlaskConical, Sun, Globe, Users, Sprout, Bird,
+  HandHeart, Scale, Recycle, Apple, Mail, Phone, MapPin, Layout
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans scroll-smooth">
+    <div className="min-h-screen bg-white text-slate-800 font-sans scroll-smooth overflow-hidden">
 
-      {/* ─────── HERO ─────── */}
-      <section className="relative pt-40 pb-28 bg-gradient-to-b from-emerald-900 via-emerald-800 to-emerald-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.07] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-white/5 rounded-full -mr-60 -mt-60 blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-400/5 rounded-full -ml-40 -mb-40 blur-3xl"></div>
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80"
+            alt="Natura"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/70 via-emerald-900/50 to-emerald-950/80"></div>
+        </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
-          <img src="/logo.png" alt="BeeHouses Foundation" className="h-28 md:h-36 w-auto mx-auto mb-10 drop-shadow-xl" />
-          <h1 className="text-4xl md:text-6xl font-serif font-bold tracking-tight mb-6 leading-tight">
-            Budujemy Cyfrową Arkę<br />dla Przyszłych Pokoleń
+        {/* Content */}
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto text-white">
+          <div className="mb-8">
+            <img src="/logo.png" alt="BeeHouses Foundation" className="h-28 md:h-40 w-auto mx-auto drop-shadow-2xl" />
+          </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight mb-6 leading-[1.1]">
+            Dom dla <span className="text-amber-300">Całej Natury</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            W świecie zmieniającego się klimatu tradycja potrzebuje wsparcia technologii.
-            Nasze ule to inteligentne azyle, w których sztuczna inteligencja dba o dobrostan pszczelich rodzin.
+          <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-4 leading-relaxed">
+            BeeHouses to nie tylko dom dla pszczół. To dom dla wszystkich —
+            zwierząt, roślin, ekosystemów i ludzi, którzy chcą żyć w harmonii z&nbsp;naturą.
+          </p>
+          <p className="text-base text-white/60 max-w-2xl mx-auto mb-10">
+            Edukacja ekologiczna · Ochrona gatunków · Innowacje · Bezpieczeństwo żywnościowe
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard" className="group inline-flex items-center justify-center px-8 py-4 bg-amber-400 hover:bg-amber-300 text-emerald-950 rounded-full font-bold transition-all shadow-lg hover:shadow-amber-400/30">
+            <Link href="/login" className="group inline-flex items-center justify-center px-8 py-4 bg-amber-400 hover:bg-amber-300 text-emerald-950 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-amber-400/30 hover:-translate-y-0.5">
               Platforma Edukacyjna
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <Link href="#mission" className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/25 hover:bg-white/10 rounded-full font-bold transition-all">
+            <Link href="#mission" className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 hover:bg-white/10 text-white rounded-full font-bold text-lg transition-all">
               Poznaj Naszą Misję
             </Link>
           </div>
         </div>
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 animate-bounce">
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce z-10">
           <ChevronDown className="h-6 w-6" />
         </div>
       </section>
 
-      {/* ─────── IMPACT ─────── */}
-      <section id="impact" className="py-24 bg-white">
+      {/* ═══════════ MISSION INTRO ═══════════ */}
+      <section id="mission" className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
-          <SectionHeader label="Wsparcie" title="Twoja inwestycja w naturę" />
-          <p className="text-center text-slate-500 max-w-2xl mx-auto mb-4 italic text-lg">
-            &ldquo;Prawdziwe bogactwo to świat, w którym pszczoły mogą bezpiecznie pracować dla nas wszystkich.&rdquo;
-          </p>
-          <p className="text-center text-slate-500 max-w-2xl mx-auto mb-14">
-            W BeeHouses nie zbieramy pieniędzy na &ldquo;przetrwanie&rdquo;. Zbieramy kapitał na innowacje. Twoja wpłata to udział w technologicznym postępie.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <IconCard icon={<Shield />} title="Bezpieczeństwo 256-bit" />
-            <IconCard icon={<FileText />} title="Certyfikat Podatkowy" />
-            <IconCard icon={<BarChart3 />} title="Twój Wpływ" desc="Zapewniasz opiekę weterynaryjną dla jednej rodziny pszczelej na miesiąc." />
-          </div>
-        </div>
-      </section>
+          <SectionHeader
+            label="Nasza Misja"
+            title="Więcej niż pszczoły"
+            subtitle="Fundacja BeeHouses łączy ekologię, naukę i empatię. Chronimy nie tylko zapylacze — działamy na rzecz całego ekosystemu, bezpieczeństwa żywnościowego i przyszłych pokoleń."
+          />
 
-      {/* ─────── TECHNOLOGY ─────── */}
-      <section id="mission" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <SectionHeader label="Wizja" title="Technologia w służbie ekosystemu" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
-              <Activity className="h-10 w-10 text-emerald-600 mb-5 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-serif font-bold mb-3 text-slate-800">Inteligentny Monitoring</h3>
-              <p className="text-slate-500 leading-relaxed">Nasze ule wyposażone są w czujniki IoT analizujące temperaturę, wilgotność i akustykę roju 24/7.</p>
-              <p className="text-emerald-600 mt-4 text-sm font-medium italic">&ldquo;Program BeeHouses dotarł już do 120 szkół.&rdquo;</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+            <div className="relative rounded-3xl overflow-hidden h-[400px] shadow-lg">
+              <img
+                src="https://images.unsplash.com/photo-1446292532430-3e76f6ab6444?w=800&q=80"
+                alt="Ekologia"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 to-transparent flex items-end p-8">
+                <div>
+                  <h3 className="text-white text-2xl font-serif font-bold mb-2">
+                    Chronimy to, co najważniejsze
+                  </h3>
+                  <p className="text-white/70">
+                    Od łąk po oceany — każdy ekosystem zasługuje na ochronę.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
-              <Hexagon className="h-10 w-10 text-amber-500 mb-5 group-hover:scale-110 transition-transform" />
-              <h3 className="text-xl font-serif font-bold mb-3 text-slate-800">Złoto Natury</h3>
-              <p className="text-slate-500 leading-relaxed">Produkcja miodu premium z certyfikatem jakości.</p>
+            <div className="flex flex-col gap-8">
+              <MiniCard icon={<Globe className="h-6 w-6" />} title="Ochrona klimatu" text="Działamy na rzecz ograniczenia zmian klimatycznych i adaptacji środowiskowej." />
+              <MiniCard icon={<Shield className="h-6 w-6" />} title="Ochrona gatunków" text="Wspieramy programy ochrony zagrożonych gatunków zwierząt i roślin." />
+              <MiniCard icon={<Sprout className="h-6 w-6" />} title="Siedliska naturalne" text="Przywracamy i chronimy naturalne siedliska jako fundament bioróżnorodności." />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─────── POLLINATORS ─────── */}
+      {/* ═══════════ 4 FILARY ═══════════ */}
+      <section className="py-24 bg-emerald-50/50">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <SectionHeader
+            label="Czym się zajmujemy"
+            title="Cztery filary naszej działalności"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14">
+            <PillarCard
+              icon={<GraduationCap className="h-8 w-8" />}
+              title="Edukacja Ekologiczna"
+              text="Prowadzimy warsztaty, programy szkolne i platformy cyfrowe, które budują świadomość ekologiczną i promują zdrowy, zrównoważony styl życia."
+              image="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80"
+            />
+            <PillarCard
+              icon={<FlaskConical className="h-8 w-8" />}
+              title="Nauka i Innowacje"
+              text="Wspieramy badania naukowe i rozwój innowacyjnych technologii przyjaznych środowisku — od inteligentnych uli po systemy monitoringu bioróżnorodności."
+              image="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&q=80"
+            />
+            <PillarCard
+              icon={<HandHeart className="h-8 w-8" />}
+              title="Działania Społeczne i Charytatywne"
+              text="Angażujemy się w inicjatywy społeczne, legislacyjne i charytatywne na rzecz ludzi, zwierząt i przyrody. Każda istota zasługuje na godne życie."
+              image="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&q=80"
+            />
+            <PillarCard
+              icon={<Apple className="h-8 w-8" />}
+              title="Bezpieczeństwo Żywnościowe"
+              text="Działamy na rzecz ochrony zasobów żywnościowych, przeciwdziałania marnowaniu żywności i zapobiegania degradacji systemów produkcji rolnej."
+              image="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ SPECIES PROTECTION ═══════════ */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 max-w-6xl">
-          <SectionHeader label="Edukacja" title="Poznaj świat zapylaczy" />
-          <p className="text-center text-slate-500 max-w-2xl mx-auto mb-14">
-            Dowiedz się, dlaczego zapylacze są tak ważne dla naszego ekosystemu i jak możesz im pomóc.
-          </p>
-
-          {/* Game CTA */}
-          <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-10 max-w-3xl mx-auto mb-14 text-center">
-            <Sparkles className="h-10 w-10 text-amber-500 mx-auto mb-4" />
-            <h3 className="text-xl font-serif font-bold mb-3 text-slate-800">Poznaj świat pszczół przez zabawę</h3>
-            <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
-              Dołącz do naszej interaktywnej gry edukacyjnej, która łączy rozrywkę z nauką o pszczołach i bioróżnorodności.
-            </p>
+          <SectionHeader
+            label="Ochrona Gatunków"
+            title="Dom dla wszystkich istot"
+            subtitle="Pszczoły to tylko początek. Chronimy całe ekosystemy — od owadów po ssaki, od łąk po lasy. Każdy gatunek odgrywa kluczową rolę."
+          />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 mt-14">
+            <SpeciesCard icon={<Bug />} label="Zapylacze" />
+            <SpeciesCard icon={<Bird />} label="Ptaki" />
+            <SpeciesCard icon={<TreePine />} label="Lasy" />
+            <SpeciesCard icon={<Leaf />} label="Rośliny" />
+            <SpeciesCard icon={<Wheat />} label="Uprawy" />
+            <SpeciesCard icon={<Heart />} label="Zwierzęta" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <InfoCard title="Co to są zapylacze?" text="Organizmy umożliwiające przenoszenie pyłku kwiatowego, dzięki czemu rośliny mogą się rozwijać." />
-            <InfoCard title="Jakie są ich rodzaje?" text="Pszczoła miodna, Muchówka, Motyl, Trzmiel, Nucha – a także ptaki, wiatr i woda." />
-            <InfoCard title="Dlaczego są ważne?" text="Wspierają różnorodność biologiczną, utrzymują ekosystemy i wpływają na produkcję żywności." />
-            <InfoCard title="Co dla nas robią?" text="Odpowiadają za zapylanie roślin uprawnych i utrzymanie zrównoważonej produkcji żywności." />
-            <InfoCard title="Dlaczego je wspierać?" text="Wspieranie zapylaczy jest ważne dla ochrony różnorodności biologicznej i stabilności przyrody." />
-            <InfoCard title="Jak im pomóc w domu?" text="Posiać kwiaty, zapewnić dostęp do wody, postawić domki dla owadów i wspierać organizacje charytatywne." />
-            <InfoCard title="Spotkanie z zapylaczem?" text="Nie zakłócaj ich pracy, nie wymachuj rękami, nie panikuj i nie zbliżaj się do dzikich uli." />
-            <InfoCard title="W razie użądlenia?" text="Wyciągnij żądło kartą, zdezynfekuj ranę i przyłóż lód na opuchliznę." />
-            <InfoCard title="Nie zapominajmy o nich!" text="Gdyby nie zapylacze, człowiek nie przeżyłby dłużej niż 4 lata. Zawsze dbajmy o nie." />
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── VISION QUOTE ─────── */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <SectionHeader label="Filozofia" title="Technologia w służbie natury, nie odwrotnie" />
-          <div className="space-y-6">
-            <blockquote className="bg-white border-l-4 border-emerald-600 rounded-xl p-8 text-slate-600 leading-relaxed italic shadow-sm">
-              &ldquo;Tradycyjne pszczelarstwo to sztuka obserwacji. W BeeHouses przenosimy ją na nowy poziom. Dzięki danym wiemy dokładnie, czego potrzebuje rój, zanim stanie się to widoczne gołym okiem. Działamy precyzyjnie, minimalizując ingerencję człowieka, by pszczoły mogły robić to, co potrafią najlepiej – żyć własnym rytmem.&rdquo;
-            </blockquote>
-            <blockquote className="bg-white border-l-4 border-amber-400 rounded-xl p-8 text-slate-600 leading-relaxed italic shadow-sm">
-              &ldquo;W ekologii nie chodzi o dominację nad przyrodą, ale o jej zrozumienie. Łączę naukowe zaplecze z energią nowego pokolenia, by udowodnić, że smart-rozwiązania mogą chronić bioróżnorodność skuteczniej niż kiedykolwiek wcześniej.&rdquo;
-            </blockquote>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── HISTORY ─────── */}
-      <section id="history" className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <SectionHeader label="O Nas" title="Historia Fundacji BeeHouses" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <TimelineCard step="01" title="Początek Misji" text="Inicjatywa w ramach Olimpiady Zwolnieni z Teorii. Zuzanna Czupryńska, Jędrzej Pisarek i Wiktor Gencel pod opieką Pawła Cieczko stworzyli projekt, który stał się misją." />
-            <TimelineCard step="02" title="Edukacja i Relacje" text="Dwa lata warsztatów w szkołach, DPS-ach i placówkach wsparcia. Do zespołu dołączył Mateusz Brzeziński." />
-            <TimelineCard step="03" title="Srebrny Wilk" text="Prestiżowa Nagroda Srebrnego Wilka oraz wyróżnienie Marszałka Województwa Kujawsko-Pomorskiego." />
-            <TimelineCard step="04" title="BeeHouses Foundation" text="Fundacja założona przez Zuzannę Czupryńską – przestrzeń, w której ekologia spotyka się z empatią." />
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── PATRONAGE ─────── */}
-      <section id="adopt" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <SectionHeader label="Adopcja" title="Zostań Mecenasem Ula" />
-          <p className="text-center text-slate-500 max-w-xl mx-auto mb-14">Wybierz poziom zaangażowania dostosowany do Twoich możliwości.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <TierCard tier="Opiekun" features={["Imienny certyfikat adopcji", "Raport kwartalny z życia ula", "Wpis na listę darczyńców"]} />
-            <TierCard tier="Mecenas" features={["3 słoiki miodu premium", "Tabliczka na ulu z Twoim imieniem", "Dostęp do kamery online"]} featured />
-            <TierCard tier="Patron Strategiczny" features={["Zestaw prezentowy VIP", "Osobista wizyta w pasiece", "Warsztaty dla firmy"]} />
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── GALLERY ─────── */}
-      <section id="gallery" className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <SectionHeader label="Galeria" title="Życie w Ulach" />
-          <p className="text-center text-slate-500 max-w-2xl mx-auto mb-14">
-            Przeżyj codzienność naszych rodzin pszczelich. Każde zdjęcie opowiada historię harmonii między technologią a naturą.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
-            <GalleryTile icon={<Cpu className="h-8 w-8" />} title="Inteligentny Ul" desc="Ekosystem monitorowany 24/7" />
-            <GalleryTile icon={<Bug className="h-8 w-8" />} title="Praca Roju" desc="Precyzja w każdym plastrze" />
-            <GalleryTile icon={<Leaf className="h-8 w-8" />} title="Łąki Kwietne" desc="Bioróżnorodność w rozkwicie" />
-            <GalleryTile icon={<BookOpen className="h-8 w-8" />} title="Edukacja" desc="Przyszłe pokolenia" />
-            <GalleryTile icon={<FlaskConical className="h-8 w-8" />} title="Badania" desc="Nauka dla bioróżnorodności" />
-            <GalleryTile icon={<Hexagon className="h-8 w-8" />} title="Złoto Natury" desc="Miód z certyfikatem" />
-            <GalleryTile icon={<Trees className="h-8 w-8" />} title="Pasieka" desc="Technologia i natura" />
-            <GalleryTile icon={<Bird className="h-8 w-8" />} title="Pszczoły" desc="Harmonia z naturą" />
-            <GalleryTile icon={<Wheat className="h-8 w-8" />} title="Ule" desc="Zaawansowane technologie" />
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── PROJECTS ─────── */}
-      <section className="py-24 bg-slate-50">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <SectionHeader label="Aktualności" title="Nasze Najnowsze Projekty" />
-          <p className="text-center text-slate-500 max-w-2xl mx-auto mb-14">
-            Inicjatywy kształtujące przyszłość ochrony pszczół i bioróżnorodności.
-          </p>
-          <div className="bg-white rounded-2xl p-10 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group">
-            <Cpu className="h-10 w-10 text-emerald-600 mb-5 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-serif font-bold mb-3 text-slate-800">AI w Ochronie Bioróżnorodności</h3>
-            <p className="text-slate-500 leading-relaxed">
-              Wykorzystujemy algorytmy sztucznej inteligencji do analizowania danych z naszych inteligentnych uli, przewidywania potrzeb roju i optymalizacji warunków życia pszczół.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────── CONTACT ─────── */}
-      <section id="kontakt" className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <SectionHeader label="Kontakt" title="Jesteśmy tu dla Ciebie" />
-          <p className="text-center text-slate-500 max-w-xl mx-auto mb-14">
-            Masz pytania dotyczące inteligentnych uli lub chcesz wesprzeć naszą misję? Napisz do nas.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <a href="mailto:hello@beehouses.org" className="bg-slate-50 rounded-2xl p-8 text-center hover:bg-emerald-50 transition-colors group border border-slate-100">
-              <Mail className="h-8 w-8 text-emerald-600 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Napisz do nas</div>
-              <div className="font-semibold text-slate-700">hello@beehouses.org</div>
-            </a>
-            <a href="tel:+48535617829" className="bg-slate-50 rounded-2xl p-8 text-center hover:bg-emerald-50 transition-colors group border border-slate-100">
-              <Phone className="h-8 w-8 text-emerald-600 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Zadzwoń</div>
-              <div className="font-semibold text-slate-700">+48 535 617 829</div>
-            </a>
-            <div className="bg-slate-50 rounded-2xl p-8 text-center group border border-slate-100">
-              <MapPin className="h-8 w-8 text-emerald-600 mx-auto mb-3" />
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Odwiedź nas</div>
-              <div className="font-semibold text-slate-700">ul. Miodowa 12<br />60-101 Poznań</div>
+          {/* Full-width image banner */}
+          <div className="relative rounded-3xl overflow-hidden mt-14 h-[300px] shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&q=80"
+              alt="Ekosystem leśny"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/70 to-transparent flex items-center">
+              <div className="p-10 md:p-16 max-w-lg">
+                <h3 className="text-white text-2xl md:text-3xl font-serif font-bold mb-3">
+                  Bioróżnorodność to&nbsp;życie
+                </h3>
+                <p className="text-white/70 leading-relaxed">
+                  Każdy gatunek jest częścią sieci, od której zależy nasze jedzenie, powietrze i przyszłość. Chrońmy ją razem.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─────── FOOTER ─────── */}
-      <footer className="bg-emerald-900 text-white py-16">
+      {/* ═══════════ POLLINATORS EDUCATION ═══════════ */}
+      <section className="py-24 bg-amber-50/40">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <SectionHeader
+            label="Zapylacze"
+            title="Świat zapylaczy — mali bohaterowie"
+            subtitle="Bez zapylaczy nie byłoby 75% upraw. Poznaj te niezwykłe istoty i dowiedz się, jak możesz im pomóc."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14">
+            <div className="relative rounded-3xl overflow-hidden h-full min-h-[350px] shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800&q=80"
+                alt="Pszczoła na kwiacie"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col gap-4">
+              <PollinatorFact q="Co to są zapylacze?" a="Organizmy przenoszące pyłek: pszczoły, motyle, trzmiele, ptaki, a nawet wiatr i woda." />
+              <PollinatorFact q="Dlaczego są ważne?" a="Wspierają reprodukcję roślin, różnorodność gatunkową i produkcję żywności na całym świecie." />
+              <PollinatorFact q="Jak im pomóc?" a="Posiać kwiaty, zapewnić wodę, postawić domki dla owadów i unikać pestycydów." />
+              <PollinatorFact q="Co robić przy użądleniu?" a="Wyciągnij żądło kartą, zdezynfekuj i przyłóż lód. Nie używaj pincety." />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ TECH & INNOVATION ═══════════ */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <SectionHeader
+            label="Innowacje"
+            title="Technologia w służbie natury"
+            subtitle="Łączymy tradycyjną wiedzę z nowoczesnymi rozwiązaniami, aby chronić środowisko skuteczniej niż kiedykolwiek."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14">
+            <TechCard icon={<Sun className="h-8 w-8" />} title="Inteligentne Ule" text="Czujniki IoT monitorujące temperaturę, wilgotność i akustykę roju w czasie rzeczywistym." />
+            <TechCard icon={<Recycle className="h-8 w-8" />} title="Zielone Technologie" text="Rozwój rozwiązań minimalizujących ślad ekologiczny w rolnictwie i produkcji." />
+            <TechCard icon={<Scale className="h-8 w-8" />} title="Inicjatywy Legislacyjne" text="Wspieramy tworzenie prawa chroniącego środowisko i prawa zwierząt na poziomie krajowym i europejskim." />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ FOOD SECURITY ═══════════ */}
+      <section className="py-24 bg-emerald-50/50">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+            <div>
+              <span className="text-amber-600 text-xs font-bold tracking-[0.25em] uppercase block mb-3">Żywność</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 mb-6">
+                Bezpieczeństwo żywnościowe <span className="text-emerald-600">zaczyna się od natury</span>
+              </h2>
+              <p className="text-slate-500 leading-relaxed mb-6">
+                Zdrowa żywność pochodzi ze zdrowego środowiska. Działamy na rzecz ochrony zasobów żywnościowych, zapobiegania marnowaniu jedzenia i przeciwdziałania degradacji systemów produkcji rolnej.
+              </p>
+              <ul className="space-y-3">
+                <CheckItem text="Ochrona zasobów żywnościowych i gleb" />
+                <CheckItem text="Przeciwdziałanie marnowaniu żywności" />
+                <CheckItem text="Wspieranie zrównoważonego rolnictwa" />
+                <CheckItem text="Edukacja o świadomej konsumpcji" />
+              </ul>
+            </div>
+            <div className="relative rounded-3xl overflow-hidden h-[400px] shadow-lg">
+              <img
+                src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80"
+                alt="Zrównoważone rolnictwo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ HISTORY ═══════════ */}
+      <section id="history" className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-6xl">
+          <SectionHeader
+            label="O Nas"
+            title="Historia Fundacji BeeHouses"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-14">
+            <TimelineCard step="01" title="Początek Misji" text="Projekt Brodnica BeeHouses w ramach Olimpiady Zwolnieni z Teorii. Zuzanna Czupryńska, Jędrzej Pisarek i Wiktor Gencel pod opieką Pawła Cieczko." />
+            <TimelineCard step="02" title="Edukacja" text="Dwa lata warsztatów w szkołach, DPS-ach i placówkach wsparcia. Do zespołu dołączył Mateusz Brzeziński." />
+            <TimelineCard step="03" title="Srebrny Wilk" text="Prestiżowa Nagroda Srebrnego Wilka i wyróżnienie Marszałka Województwa Kujawsko-Pomorskiego." />
+            <TimelineCard step="04" title="Fundacja" text="BeeHouses Foundation — przestrzeń, w której ekologia spotyka się z empatią i innowacją." />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="py-20 bg-emerald-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div className="container mx-auto px-6 text-center relative z-10">
+          <img src="/logo.png" alt="Logo" className="h-16 w-auto mx-auto mb-6 opacity-80" />
+          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Dołącz do nas</h2>
+          <p className="text-white/70 max-w-xl mx-auto mb-8 text-lg">
+            Razem możemy więcej. Ucz się, działaj i buduj przyszłość, w&nbsp;której natura i człowiek żyją w harmonii.
+          </p>
+          <Link href="/login" className="group inline-flex items-center px-8 py-4 bg-amber-400 hover:bg-amber-300 text-emerald-950 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-amber-400/20 hover:-translate-y-0.5">
+            Wejdź na Platformę
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </section>
+
+      {/* ═══════════ CONTACT ═══════════ */}
+      <section id="kontakt" className="py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <SectionHeader label="Kontakt" title="Porozmawiajmy" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-14">
+            <ContactTile icon={<Mail />} label="Email" value="hello@beehouses.org" href="mailto:hello@beehouses.org" />
+            <ContactTile icon={<Phone />} label="Telefon" value="+48 535 617 829" href="tel:+48535617829" />
+            <ContactTile icon={<MapPin />} label="Adres" value="ul. Miodowa 12, Poznań" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════ FOOTER ═══════════ */}
+      <footer className="bg-slate-900 text-white py-16">
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-12">
             <div className="max-w-sm">
               <div className="flex items-center space-x-3 mb-4">
                 <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
-                <span className="font-serif font-bold text-lg">Bee Houses Foundation</span>
+                <span className="font-serif font-bold text-lg">BeeHouses Foundation</span>
               </div>
-              <p className="text-white/50 text-sm leading-relaxed">
-                Projektujemy ekosystemy z taką samą precyzją, z jaką pszczoła buduje swój plaster.
+              <p className="text-white/40 text-sm leading-relaxed">
+                Dom dla całej natury. Edukacja, ochrona, innowacja — wszystko w harmonii z ekosystemem.
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-x-12 gap-y-2 text-sm">
+            <div className="grid grid-cols-3 gap-x-10 gap-y-2 text-sm">
               <div>
-                <h4 className="font-bold text-white/80 mb-3 text-xs uppercase tracking-wider">Fundacja</h4>
-                <ul className="space-y-2 text-white/50"><li><Link href="#mission" className="hover:text-white transition-colors">O Fundacji</Link></li><li><Link href="#gallery" className="hover:text-white transition-colors">Nasze Łąki</Link></li><li><Link href="#" className="hover:text-white transition-colors">Etyka Pszczela</Link></li></ul>
+                <h4 className="font-bold text-white/70 mb-3 text-xs uppercase tracking-wider">Fundacja</h4>
+                <ul className="space-y-2 text-white/40">
+                  <li><Link href="#mission" className="hover:text-white transition-colors">Misja</Link></li>
+                  <li><Link href="#history" className="hover:text-white transition-colors">Historia</Link></li>
+                  <li><Link href="#kontakt" className="hover:text-white transition-colors">Kontakt</Link></li>
+                </ul>
               </div>
               <div>
-                <h4 className="font-bold text-white/80 mb-3 text-xs uppercase tracking-wider">Działaj</h4>
-                <ul className="space-y-2 text-white/50"><li><Link href="#adopt" className="hover:text-white transition-colors">Adoptuj Ul</Link></li><li><Link href="/dashboard" className="hover:text-white transition-colors">Programy Edukacyjne</Link></li><li><Link href="#" className="hover:text-white transition-colors">Raport Roczny</Link></li></ul>
+                <h4 className="font-bold text-white/70 mb-3 text-xs uppercase tracking-wider">Działaj</h4>
+                <ul className="space-y-2 text-white/40">
+                  <li><Link href="/login" className="hover:text-white transition-colors">Platforma</Link></li>
+                  <li><Link href="#" className="hover:text-white transition-colors">Wolontariat</Link></li>
+                  <li><Link href="#" className="hover:text-white transition-colors">Współpraca</Link></li>
+                </ul>
               </div>
               <div>
-                <h4 className="font-bold text-white/80 mb-3 text-xs uppercase tracking-wider">Kontakt</h4>
-                <ul className="space-y-2 text-white/50"><li><Link href="#kontakt" className="hover:text-white transition-colors">Kontakt</Link></li><li><Link href="#" className="hover:text-white transition-colors">Współpraca</Link></li><li><Link href="#" className="hover:text-white transition-colors">Wolontariat</Link></li></ul>
+                <h4 className="font-bold text-white/70 mb-3 text-xs uppercase tracking-wider">Obszary</h4>
+                <ul className="space-y-2 text-white/40">
+                  <li><Link href="#" className="hover:text-white transition-colors">Edukacja</Link></li>
+                  <li><Link href="#" className="hover:text-white transition-colors">Ochrona gatunków</Link></li>
+                  <li><Link href="#" className="hover:text-white transition-colors">Żywność</Link></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -247,75 +328,105 @@ export default function Home() {
   );
 }
 
-/* ──── Reusable Components ──── */
+/* ═══════════ COMPONENT HELPERS ═══════════ */
 
-function SectionHeader({ label, title }: { label: string; title: string }) {
+function SectionHeader({ label, title, subtitle }: { label: string; title: string; subtitle?: string }) {
   return (
-    <div className="text-center mb-14">
+    <div className="text-center">
       <span className="text-emerald-600 text-xs font-bold tracking-[0.25em] uppercase block mb-3">{label}</span>
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800">{title}</h2>
-      <div className="h-1 w-16 bg-amber-400 mx-auto rounded-full mt-4"></div>
+      <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-800 mb-3">{title}</h2>
+      <div className="h-1 w-14 bg-amber-400 mx-auto rounded-full mb-4"></div>
+      {subtitle && <p className="text-slate-500 max-w-2xl mx-auto text-lg leading-relaxed mt-4">{subtitle}</p>}
     </div>
   );
 }
 
-function IconCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc?: string }) {
+function MiniCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
   return (
-    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-8 text-center hover:shadow-md transition-shadow group">
-      <div className="text-emerald-600 mx-auto mb-4 flex justify-center group-hover:scale-110 transition-transform">{icon}</div>
-      <h3 className="font-bold text-slate-800 mb-2">{title}</h3>
-      {desc && <p className="text-slate-500 text-sm">{desc}</p>}
-    </div>
-  );
-}
-
-function InfoCard({ title, text }: { title: string; text: string }) {
-  return (
-    <div className="bg-slate-50 border border-slate-100 rounded-xl p-6 hover:border-emerald-200 hover:shadow-sm transition-all group">
-      <h3 className="font-bold text-slate-800 mb-2 group-hover:text-emerald-700 transition-colors text-sm">{title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{text}</p>
-    </div>
-  );
-}
-
-function TimelineCard({ step, title, text }: { step: string; title: string; text: string }) {
-  return (
-    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-8 hover:shadow-md transition-shadow group relative overflow-hidden">
-      <div className="text-7xl font-serif font-bold text-slate-100 absolute -top-3 -right-2 group-hover:text-emerald-50 transition-colors">{step}</div>
-      <div className="relative z-10">
-        <div className="text-emerald-600 text-xs font-bold uppercase tracking-widest mb-3">Etap {step}</div>
-        <h3 className="text-lg font-serif font-bold mb-3 text-slate-800 group-hover:text-emerald-700 transition-colors">{title}</h3>
+    <div className="bg-emerald-50 rounded-2xl p-6 flex items-start gap-4 hover:bg-emerald-100/60 transition-colors group">
+      <div className="text-emerald-600 mt-1 group-hover:scale-110 transition-transform flex-shrink-0">{icon}</div>
+      <div>
+        <h4 className="font-bold text-slate-800 mb-1">{title}</h4>
         <p className="text-slate-500 text-sm leading-relaxed">{text}</p>
       </div>
     </div>
   );
 }
 
-function TierCard({ tier, features, featured }: { tier: string; features: string[]; featured?: boolean }) {
+function PillarCard({ icon, title, text, image }: { icon: React.ReactNode; title: string; text: string; image: string }) {
   return (
-    <div className={`rounded-2xl p-8 transition-shadow group relative border ${featured ? 'bg-emerald-50 border-emerald-200 shadow-md scale-[1.03]' : 'bg-white border-slate-100 hover:shadow-md'}`}>
-      {featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">Popularny</div>}
-      <h3 className="text-xl font-serif font-bold mb-6 text-center text-slate-800">{tier}</h3>
-      <ul className="space-y-3 mb-8">
-        {features.map((f, i) => (
-          <li key={i} className="flex items-start text-slate-600 text-sm">
-            <Star className="h-4 w-4 text-amber-500 mr-3 mt-0.5 flex-shrink-0" />
-            {f}
-          </li>
-        ))}
-      </ul>
-      <button className={`w-full py-3 rounded-full font-bold text-sm transition-all ${featured ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50 text-slate-700'}`}>
-        Wybieram
-      </button>
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-lg transition-shadow group">
+      <div className="h-48 overflow-hidden">
+        <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      </div>
+      <div className="p-7">
+        <div className="text-emerald-600 mb-3">{icon}</div>
+        <h3 className="text-lg font-serif font-bold text-slate-800 mb-2">{title}</h3>
+        <p className="text-slate-500 text-sm leading-relaxed">{text}</p>
+      </div>
     </div>
   );
 }
 
-function GalleryTile({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
+function SpeciesCard({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
-    <div className="bg-slate-50 border border-slate-100 rounded-xl p-6 hover:bg-emerald-50 hover:border-emerald-200 transition-all group aspect-square flex flex-col justify-end relative overflow-hidden">
-      <div className="absolute top-4 right-4 text-slate-200 group-hover:text-emerald-300 transition-colors">{icon}</div>
-      <div><h3 className="font-bold text-sm text-slate-700 mb-1 group-hover:text-emerald-700 transition-colors">{title}</h3><p className="text-slate-400 text-xs">{desc}</p></div>
+    <div className="bg-emerald-50 rounded-2xl p-6 text-center hover:bg-emerald-100 transition-colors group cursor-default">
+      <div className="text-emerald-600 mx-auto mb-3 flex justify-center group-hover:scale-110 transition-transform">{icon}</div>
+      <span className="text-sm font-bold text-slate-700">{label}</span>
     </div>
   );
+}
+
+function PollinatorFact({ q, a }: { q: string; a: string }) {
+  return (
+    <div className="bg-white rounded-xl p-5 border border-slate-100 hover:border-amber-200 transition-colors">
+      <h4 className="font-bold text-slate-800 text-sm mb-1">{q}</h4>
+      <p className="text-slate-500 text-sm leading-relaxed">{a}</p>
+    </div>
+  );
+}
+
+function TechCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return (
+    <div className="bg-slate-50 rounded-2xl p-8 border border-slate-100 hover:shadow-md transition-all group text-center">
+      <div className="text-emerald-600 mx-auto mb-4 flex justify-center group-hover:scale-110 transition-transform">{icon}</div>
+      <h3 className="text-lg font-serif font-bold text-slate-800 mb-2">{title}</h3>
+      <p className="text-slate-500 text-sm leading-relaxed">{text}</p>
+    </div>
+  );
+}
+
+function CheckItem({ text }: { text: string }) {
+  return (
+    <li className="flex items-center gap-3 text-slate-600 text-sm">
+      <div className="h-5 w-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
+        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+      </div>
+      {text}
+    </li>
+  );
+}
+
+function TimelineCard({ step, title, text }: { step: string; title: string; text: string }) {
+  return (
+    <div className="bg-slate-50 rounded-2xl p-7 border border-slate-100 hover:shadow-md transition-shadow group relative overflow-hidden">
+      <div className="text-7xl font-serif font-bold text-slate-100 absolute -top-3 -right-2 group-hover:text-emerald-100 transition-colors">{step}</div>
+      <div className="relative z-10">
+        <div className="text-emerald-600 text-xs font-bold uppercase tracking-widest mb-2">Etap {step}</div>
+        <h3 className="text-base font-serif font-bold text-slate-800 mb-2 group-hover:text-emerald-700 transition-colors">{title}</h3>
+        <p className="text-slate-500 text-sm leading-relaxed">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function ContactTile({ icon, label, value, href }: { icon: React.ReactNode; label: string; value: string; href?: string }) {
+  const inner = (
+    <div className="bg-slate-50 rounded-2xl p-8 text-center hover:bg-emerald-50 transition-colors group border border-slate-100">
+      <div className="text-emerald-600 mx-auto mb-3 flex justify-center group-hover:scale-110 transition-transform">{icon}</div>
+      <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">{label}</div>
+      <div className="font-semibold text-slate-700">{value}</div>
+    </div>
+  );
+  return href ? <a href={href}>{inner}</a> : inner;
 }
