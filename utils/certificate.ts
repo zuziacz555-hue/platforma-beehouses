@@ -51,35 +51,22 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             }
 
             // Text Positioning based on the provided design
+            // The image already contains most of the text.
+            // We only need to insert the Name and the Date.
 
-            // Header - "CERTYFIKAT"
-            doc.fontSize(60).fillColor('#558b2f'); // Greenish color like in the image
-            doc.text('CERTYFIKAT', 0, 100, { align: 'center', width: 842 });
-
-            doc.fontSize(16).fillColor('black');
-            doc.text('Niniejszym zaświadcza się, że', 0, 180, { align: 'center', width: 842 });
-
-            // Name - Centered
-            doc.fontSize(40).fillColor('black');
-            doc.text(`${user.firstName} ${user.lastName}`, 0, 230, {
+            // Name - Centered in the middle placeholder
+            doc.fontSize(40).fillColor('#2e4d2a'); // Using a dark green to match the theme
+            doc.text(`${user.firstName} ${user.lastName}`, 0, 275, {
                 align: 'center',
                 width: 842
             });
 
-            doc.fontSize(16).text('ukończył(a) kurs', 0, 300, { align: 'center', width: 842 });
-
-            doc.fontSize(24).text('„Wiedza o zapylaczach i ich roli w ekosystemie”', 0, 330, { align: 'center', width: 842 });
-
-            doc.fontSize(12).text(
-                'obejmujący zagadnienia z zakresu biologii, znaczenia oraz ochrony zapylaczy, w szczególności\ntakich gatunków jak pszczoła miodna (Apis mellifera), trzmiele oraz inne owady zapylające.',
-                0, 380, { align: 'center', width: 842 }
-            );
-
-            // Date - Bottom Left
-            doc.fontSize(12).fillColor('black');
-            doc.text('DATA UKOŃCZENIA', 100, 480);
-            doc.fontSize(16);
-            doc.text(`${date.toLocaleDateString('pl-PL')}`, 100, 500);
+            // Date - Bottom Left under the "DATA UKOŃCZENIA" line
+            doc.fontSize(16).fillColor('black');
+            doc.text(`${date.toLocaleDateString('pl-PL')}`, 210, 485, {
+                width: 150,
+                align: 'center'
+            });
 
             doc.end();
         } catch (error) {
