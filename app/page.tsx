@@ -25,7 +25,7 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto text-white">
           <div className="mb-8">
-            <img src="/logo.png" alt="BeeHouses Foundation" className="h-28 md:h-40 w-auto mx-auto drop-shadow-2xl" />
+            <img src="/beehouses-logo.jpg" alt="BeeHouses Foundation" className="h-28 md:h-40 w-auto mx-auto drop-shadow-2xl" />
           </div>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold tracking-tight mb-6 leading-[1.1]">
             Dom dla <span className="text-amber-300">Całej Natury</span>
@@ -255,7 +255,7 @@ export default function Home() {
       <section className="py-20 bg-emerald-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
         <div className="container mx-auto px-6 text-center relative z-10">
-          <img src="/logo.png" alt="Logo" className="h-16 w-auto mx-auto mb-6 opacity-80" />
+          <img src="/beehouses-logo.jpg" alt="Logo" className="h-16 w-auto mx-auto mb-6 opacity-80" />
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4">Dołącz do nas</h2>
           <p className="text-white/70 max-w-xl mx-auto mb-8 text-lg">
             Razem możemy więcej. Ucz się, działaj i buduj przyszłość, w&nbsp;której natura i człowiek żyją w harmonii.
@@ -285,7 +285,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-12">
             <div className="max-w-sm">
               <div className="flex items-center space-x-3 mb-4">
-                <img src="/logo.png" alt="Logo" className="h-10 w-auto" />
+                <img src="/beehouses-logo.jpg" alt="Logo" className="h-10 w-auto" />
                 <span className="font-serif font-bold text-lg">BeeHouses Foundation</span>
               </div>
               <p className="text-white/40 text-sm leading-relaxed">

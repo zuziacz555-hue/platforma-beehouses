@@ -23,7 +23,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto flex justify-between items-center bg-white/90 backdrop-blur-xl px-5 md:px-8 py-3 rounded-full shadow-lg border border-slate-100">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
-                    <img src="/logo.png" alt="BeeHouses" className="h-9 w-auto object-contain" />
+                    <img src="/beehouses-logo.jpg" alt="BeeHouses" className="h-9 w-auto object-contain" />
                     <span className="font-serif font-bold text-slate-800 text-base tracking-tight hidden lg:block">
                         BeeHouses <span className="text-emerald-600">Foundation</span>
                     </span>
