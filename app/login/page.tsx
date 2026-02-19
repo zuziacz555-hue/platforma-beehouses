@@ -50,7 +50,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen pt-28 pb-12 px-6">
+        <div className="flex justify-center items-center min-h-screen pt-28 pb-12 px-6 bg-ivory-50 text-slate-800">
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-stone-200">
                 <div className="flex flex-col items-center mb-6">
                     <div className="bg-amber-100 p-3 rounded-full mb-3 shadow-inner">
