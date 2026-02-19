@@ -6,8 +6,8 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
     return new Promise((resolve, reject) => {
         try {
             // Load custom font buffer to avoid ENOENT for standard fonts in serverless
-            // Using Arial.ttf for guaranteed Polish character support
-            const fontPath = path.join(process.cwd(), 'fonts', 'Arial.ttf');
+            // Using public/fonts/Arial.ttf for Vercel bundling compatibility
+            const fontPath = path.join(process.cwd(), 'public', 'fonts', 'Arial.ttf');
             console.log('Loading font from:', fontPath);
             let fontBuffer: Buffer;
 
@@ -29,7 +29,7 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             doc.on('end', () => resolve(Buffer.concat(chunks)));
             doc.on('error', reject);
 
-            // Add background image
+            // Add background image - ensure path is consistently resolved
             const bgPath = path.join(process.cwd(), 'public', 'certificate-bg.png');
             try {
                 if (fs.existsSync(bgPath)) {
