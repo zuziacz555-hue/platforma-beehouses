@@ -43,25 +43,35 @@ export async function generateCertificatePDF(user: any, date: Date): Promise<Buf
             }
 
             // Text Positioning based on the provided design
-            // Name should be centered, roughly in the middle-upper part
-            // Date should be bottom-left
 
-            // Configure font size for the name
-            doc.fontSize(40).fillColor('black');
+            // Header - "CERTYFIKAT"
+            doc.fontSize(60).fillColor('#558b2f'); // Greenish color like in the image
+            doc.text('CERTYFIKAT', 0, 100, { align: 'center', width: 842 });
+
+            doc.fontSize(16).fillColor('black');
+            doc.text('Niniejszym zaświadcza się, że', 0, 180, { align: 'center', width: 842 });
 
             // Name - Centered
-            // Adjust '300' to vertically align with the "gap" in the certificate design
-            doc.text(`${user.firstName} ${user.lastName}`, 0, 290, {
+            doc.fontSize(40).fillColor('black');
+            doc.text(`${user.firstName} ${user.lastName}`, 0, 230, {
                 align: 'center',
-                width: 842 // Full width for centering
+                width: 842
             });
 
+            doc.fontSize(16).text('ukończył(a) kurs', 0, 300, { align: 'center', width: 842 });
+
+            doc.fontSize(24).text('„Wiedza o zapylaczach i ich roli w ekosystemie”', 0, 330, { align: 'center', width: 842 });
+
+            doc.fontSize(12).text(
+                'obejmujący zagadnienia z zakresu biologii, znaczenia oraz ochrony zapylaczy, w szczególności\ntakich gatunków jak pszczoła miodna (Apis mellifera), trzmiele oraz inne owady zapylające.',
+                0, 380, { align: 'center', width: 842 }
+            );
+
             // Date - Bottom Left
-            // Adjust coordinates to match the "data ukończenia" line
-            doc.fontSize(15);
-            doc.text(`${date.toLocaleDateString()}`, 180, 445, {
-                align: 'left'
-            });
+            doc.fontSize(12).fillColor('black');
+            doc.text('DATA UKOŃCZENIA', 100, 480);
+            doc.fontSize(16);
+            doc.text(`${date.toLocaleDateString('pl-PL')}`, 100, 500);
 
             doc.end();
         } catch (error) {
