@@ -1,15 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fdfbf7;
+  /* Ivory 50 */
+  --foreground: #1c1917;
+  /* Stone 900 equivalent approx */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-lato);
+  --font-serif: var(--font-playfair-display);
+
+  /* Ivory Palette */
+  --color-ivory-50: #fdfbf7;
+  --color-ivory-100: #fbf7ef;
+  --color-ivory-200: #f6ebd7;
+  --color-ivory-300: #efdbb5;
+  --color-ivory-400: #e6c48a;
+  --color-ivory-500: #dfaf64;
+  --color-ivory-600: #d19446;
+  --color-ivory-700: #ae7236;
+  --color-ivory-800: #8d5a31;
+  --color-ivory-900: #734a2c;
+
+  /* Deep Emerald Palette */
+  --color-emerald-800: #065f46;
+  --color-emerald-900: #064e3b;
+  --color-emerald-950: #022c22;
 
   --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
   --animate-scale-in: scaleIn 0.5s ease-out forwards;

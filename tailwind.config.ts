@@ -8,6 +8,29 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            colors: {
+                ivory: {
+                    50: '#fdfbf7',
+                    100: '#fbf7ef',
+                    200: '#f6ebd7',
+                    300: '#efdbb5',
+                    400: '#e6c48a',
+                    500: '#dfaf64',
+                    600: '#d19446',
+                    700: '#ae7236',
+                    800: '#8d5a31',
+                    900: '#734a2c',
+                },
+                emerald: {
+                    800: '#065f46', // Adjusting standard defaults if needed or keeping standard
+                    900: '#064e3b', // Deep forest green
+                    950: '#022c22', // Even deeper
+                },
+            },
+            fontFamily: {
+                serif: ['var(--font-playfair-display)', 'serif'],
+                sans: ['var(--font-lato)', 'sans-serif'],
+            },
             animation: {
                 'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
                 'scale-in': 'scaleIn 0.5s ease-out forwards',

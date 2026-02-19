@@ -4,15 +4,15 @@ import { useEffect, useState, useRef } from 'react';
 import api from '../../../utils/api';
 import { useAuth } from '../../../context/AuthContext';
 import { useRouter, useParams } from 'next/navigation';
-import { Clock, CheckCircle, ArrowRight } from 'lucide-react';
+import { Clock, CheckCircle, ArrowRight, PlayCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ChapterView() {
     const { user, loading } = useAuth();
     const router = useRouter();
-    const params = useParams(); // This is how params are accessed in a client component
+    const params = useParams();
     const [chapter, setChapter] = useState<any>(null);
-    const [timeLeft, setTimeLeft] = useState(180); // 3 minutes
+    const [timeLeft, setTimeLeft] = useState(180);
     const [timeSpent, setTimeSpent] = useState(0);
     const [completed, setCompleted] = useState(false);
     const [canComplete, setCanComplete] = useState(false);
@@ -33,17 +33,10 @@ export default function ChapterView() {
             const userProg = progRes.data.find((p: any) => p.chapterId === parseInt(id as string));
             if (userProg) {
                 setCompleted(userProg.completed);
-                // Resume time functionality could be here if we tracked strictly.
-                // Requirement: "Po wejściu do rozdziału... Start licznika... Po osiągnięciu 180 sekund... completed = true"
-                // If already completed, no timer needed, or optional.
                 if (userProg.completed) {
                     setCanComplete(true);
                     setTimeLeft(0);
                 } else {
-                    // If not completed, we restart timer or calculate diff?
-                    // Let's restart timer for simplicity of "spędzenia 3 minut w sesji" or just total accumulated?
-                    // Requirement: "Backend validuje czy faktycznie minęło min 180 sek" (Total)
-                    // So we should see how much time they ALREADY spent.
                     setTimeSpent(userProg.timeSpent);
                     const remaining = Math.max(0, 180 - userProg.timeSpent);
                     setTimeLeft(remaining);
@@ -62,9 +55,6 @@ export default function ChapterView() {
         if (!loading && !user) router.push('/login');
         if (user && params.id) {
             fetchChapter();
-            // Also fetch progress to resume time/status?
-            // Basic requirement: Start timer regardless? Or check if completed.
-            // Let's check status first.
         }
         return () => {
             if (timerRef.current) clearInterval(timerRef.current);
@@ -73,7 +63,6 @@ export default function ChapterView() {
     }, [user, loading, params.id]);
 
     const startTimer = () => {
-        // Local timer for UI countdown
         timerRef.current = setInterval(() => {
             setTimeLeft(prev => {
                 if (prev <= 1) {
@@ -85,7 +74,6 @@ export default function ChapterView() {
             });
         }, 1000);
 
-        // Backend sync every 10s
         saveIntervalRef.current = setInterval(() => {
             saveProgress(10);
         }, 10000);
@@ -97,8 +85,6 @@ export default function ChapterView() {
                 chapterId: params.id,
                 timeIncrement: increment
             });
-            // Verify total time?
-            // Backend returns { canComplete, completed }
         } catch (err) {
             console.error('Progress save fail', err);
         }
@@ -108,14 +94,20 @@ export default function ChapterView() {
         try {
             await api.post('/progress/complete', { chapterId: params.id });
             setCompleted(true);
-            // Redirect to dashboard or load next?
             router.push('/dashboard');
         } catch (err) {
             alert('Jeszcze nie minęło wystarczająco dużo czasu lub błąd serwera.');
         }
     };
 
-    if (!chapter) return <div>Ładowanie...</div>;
+    if (!chapter) return (
+        <div className="min-h-screen flex items-center justify-center bg-ivory-50">
+            <div className="animate-pulse flex flex-col items-center">
+                <div className="h-12 w-12 border-4 border-emerald-900 border-t-amber-500 rounded-full animate-spin mb-4"></div>
+                <p className="text-emerald-900 font-serif text-lg">Ładowanie rozdziału...</p>
+            </div>
+        </div>
+    );
 
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
@@ -124,71 +116,138 @@ export default function ChapterView() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8 pt-32 pb-20 px-6">
-            <Link href="/dashboard" className="text-amber-600 hover:text-amber-700 hover:underline font-medium inline-flex items-center">
-                &larr; Powrót do kursu
-            </Link>
+        <div className="min-h-screen bg-ivory-50 relative overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-200/20 rounded-full blur-[100px] -mr-40 -mt-40 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-200/10 rounded-full blur-[120px] -ml-20 -mb-20 pointer-events-none"></div>
 
-            <div className="bg-white p-8 rounded-2xl shadow-lg border border-stone-200">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-3xl font-bold text-slate-900">{chapter.title}</h1>
-
-                    {!completed && (
-                        <div className={`flex items-center space-x-2 px-4 py-2 rounded-full font-mono text-lg shadow-sm
-                    ${canComplete ? 'bg-green-100 text-green-700 ring-1 ring-green-200' : 'bg-amber-100 text-amber-800 ring-1 ring-amber-200'}`}>
-                            <Clock className="h-5 w-5" />
-                            <span>{canComplete ? 'Czas minął!' : formatTime(timeLeft)}</span>
-                        </div>
-                    )}
-                    {completed && (
-                        <div className="flex items-center space-x-2 px-4 py-2 bg-green-100 text-green-700 rounded-full ring-1 ring-green-200">
-                            <CheckCircle className="h-5 w-5" />
-                            <span>Ukończono</span>
-                        </div>
-                    )}
+            <div className="max-w-5xl mx-auto pt-32 pb-24 px-6 relative z-10">
+                <div className="mb-10">
+                    <Link href="/dashboard" className="group inline-flex items-center text-emerald-800 hover:text-emerald-600 transition-colors font-medium">
+                        <span className="w-8 h-8 rounded-full bg-white border border-emerald-100 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform shadow-sm">
+                            &larr;
+                        </span>
+                        Powrót do kursu
+                    </Link>
                 </div>
 
-                {chapter.videoUrl && (
-                    <div className="aspect-video bg-slate-900 rounded-xl mb-6 overflow-hidden shadow-md">
-                        {/* Simple embed detection or just link */}
-                        {chapter.videoUrl.includes('youtube') ? (
-                            <iframe
-                                src={chapter.videoUrl.replace('watch?v=', 'embed/')}
-                                className="w-full h-full"
-                                allowFullScreen
-                                title="Video"
-                            />
-                        ) : (
-                            <div className="flex items-center justify-center h-full text-white">
-                                <a href={chapter.videoUrl} target="_blank" className="underline text-amber-400 hover:text-amber-300">Zobacz video</a>
+                <div className="bg-white rounded-[2rem] shadow-xl border border-ivory-200 overflow-hidden">
+                    {/* Header Section */}
+                    <div className="bg-emerald-900 text-ivory-50 p-10 md:p-14 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+
+                        <div className="relative z-10">
+                            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                                <div className="flex-1">
+                                    <span className="inline-block px-4 py-1.5 bg-amber-500/20 text-amber-300 rounded-full text-sm font-bold tracking-wider mb-4 border border-amber-500/30 uppercase">
+                                        Rozdział Kursu
+                                    </span>
+                                    <h1 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-4 text-white">
+                                        {chapter.title}
+                                    </h1>
+                                </div>
+
+                                {/* Timer Card */}
+                                <div className={`flex items-center space-x-4 px-6 py-4 rounded-2xl backdrop-blur-md border transition-all duration-500
+                                    ${completed
+                                        ? 'bg-emerald-800/50 border-emerald-700/50 text-emerald-100'
+                                        : canComplete
+                                            ? 'bg-emerald-800/80 border-emerald-500 text-emerald-100 shadow-[0_0_15px_rgba(16,185,129,0.3)]'
+                                            : 'bg-white/10 border-white/10 text-ivory-200'
+                                    }`}>
+                                    {completed ? (
+                                        <>
+                                            <div className="p-2 bg-emerald-500 rounded-full">
+                                                <CheckCircle className="h-6 w-6 text-white" />
+                                            </div>
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider opacity-80">Status</p>
+                                                <p className="font-bold text-lg">Ukończono</p>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className={`p-2 rounded-full ${canComplete ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500/20'}`}>
+                                                <Clock className={`h-6 w-6 ${canComplete ? 'text-white' : 'text-amber-400'}`} />
+                                            </div>
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider opacity-80">Pozostały czas</p>
+                                                <p className={`font-mono text-xl font-bold ${canComplete ? 'text-white' : 'text-amber-300'}`}>
+                                                    {canComplete ? '0:00' : formatTime(timeLeft)}
+                                                </p>
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="p-10 md:p-14">
+                        {chapter.videoUrl && (
+                            <div className="mb-12 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-900/5 group">
+                                {chapter.videoUrl.includes('youtube') ? (
+                                    <div className="aspect-video relative">
+                                        <iframe
+                                            src={chapter.videoUrl.replace('watch?v=', 'embed/')}
+                                            className="w-full h-full"
+                                            allowFullScreen
+                                            title="Video"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="aspect-video bg-slate-900 flex items-center justify-center relative overflow-hidden group-hover:bg-slate-800 transition-colors">
+                                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579380656108-f98e4df8ea62?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center opacity-40"></div>
+                                        <a href={chapter.videoUrl} target="_blank" className="relative z-10 flex flex-col items-center group/link">
+                                            <PlayCircle className="w-20 h-20 text-white opacity-90 group-hover/link:scale-110 transition-transform duration-300" />
+                                            <span className="mt-4 text-white font-medium text-lg border-b border-transparent group-hover/link:border-white transition-all">
+                                                Otwórz materiał wideo
+                                            </span>
+                                        </a>
+                                    </div>
+                                )}
                             </div>
                         )}
+
+                        <div className="prose prose-lg prose-slate max-w-none text-slate-600 mb-12 leading-loose font-light">
+                            {/* Simulate Drop Cap for first letter if content exists */}
+                            <style jsx global>{`
+                                .prose p:first-of-type::first-letter {
+                                    font-family: var(--font-playfair-display);
+                                    font-size: 3.5rem;
+                                    line-height: 1;
+                                    float: left;
+                                    margin-right: 1rem;
+                                    color: #064e3b; /* emerald-900 */
+                                    font-weight: 700;
+                                }
+                            `}</style>
+                            {chapter.content}
+                        </div>
+
+                        <div className="flex justify-end pt-8 border-t border-ivory-200">
+                            {completed ? (
+                                <button
+                                    onClick={() => router.push('/dashboard')}
+                                    className="px-8 py-4 bg-ivory-100 text-emerald-900 rounded-xl hover:bg-ivory-200 font-bold transition-all flex items-center shadow-sm hover:shadow-md"
+                                >
+                                    Wróć do listy rozdziałów
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleComplete}
+                                    disabled={!canComplete}
+                                    className={`group flex items-center space-x-3 px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300
+                                    ${canComplete
+                                            ? 'bg-gradient-to-r from-emerald-800 to-emerald-700 text-white hover:from-emerald-700 hover:to-emerald-600 shadow-lg hover:shadow-emerald-900/20 hover:-translate-y-1'
+                                            : 'bg-slate-100 text-slate-400 cursor-not-allowed'}`}
+                                >
+                                    <span>Oznacz jako ukończone</span>
+                                    <ArrowRight className={`h-5 w-5 transition-transform ${canComplete ? 'group-hover:translate-x-1' : ''}`} />
+                                </button>
+                            )}
+                        </div>
                     </div>
-                )}
-
-                <div className="prose prose-slate prose-headings:text-slate-900 max-w-none text-slate-700 mb-8 whitespace-pre-wrap leading-loose">
-                    {chapter.content}
-                </div>
-
-                <div className="flex justify-end pt-6 border-t border-stone-100">
-                    {completed ? (
-                        <button
-                            onClick={() => router.push('/dashboard')}
-                            className="px-6 py-3 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 font-bold transition-colors"
-                        >
-                            Wróć do listy
-                        </button>
-                    ) : (
-                        <button
-                            onClick={handleComplete}
-                            disabled={!canComplete}
-                            className={`flex items-center space-x-2 px-8 py-3 rounded-lg font-bold transition-all
-                        ${canComplete ? 'bg-amber-600 text-white hover:bg-amber-700 shadow-lg transform hover:-translate-y-1' : 'bg-stone-200 text-stone-400 cursor-not-allowed'}`}
-                        >
-                            <span>Oznacz jako ukończone</span>
-                            <ArrowRight className="h-5 w-5" />
-                        </button>
-                    )}
                 </div>
             </div>
         </div>
